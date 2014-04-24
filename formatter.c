@@ -197,7 +197,8 @@ void main(int argc, char **argv) {
 			exit(EXIT_SUCCESS);
 		}
 
-		if (linebuf == strstr(linebuf, "PING")) {	/* check ping */
+		// if (linebuf == strstr(linebuf, "PING")) {	/* check ping */
+		if (strstr(linebuf, "PING")) {
 
 			if (	numRead >= (5 /* ping and space */ + MAC_ADDR_LEN + 2 /* \r\n */) &&
 				isValidMacAddrStr(&linebuf[5]) ) {
@@ -205,7 +206,9 @@ void main(int argc, char **argv) {
 				strncpy(macAddrStr, &linebuf[5], MAC_ADDR_LEN);
 			}
 
-			fprintf(stdout, "PONG\r\n");		/* reply anyway */
+			//fprintf(stdout, "PONG\r\n");		/* reply anyway */
+			write(1, "PONG\r\n", 6);
+			write(1, "PONG\r\n", 6);
 			printLine("ping ... pong ...");
 			continue;
 		}
